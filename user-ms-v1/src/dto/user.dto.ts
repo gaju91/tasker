@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsInt, IsString, IsEmail, IsOptional, IsEnum } from 'class-validator';
 import { UserType } from 'src/common/enums/user-type.enum';
 
@@ -21,7 +22,7 @@ export class CreateUserDto {
 
 export class UpdateUserDto {
     @IsString()
-    _id: string;
+    _id?: string;
 
     @IsOptional()
     @IsString()
@@ -50,10 +51,12 @@ export class GetUsersDto {
 
     @IsOptional()
     @IsInt()
+    @Type(() => Number)
     limit?: number;
 
     @IsOptional()
     @IsInt()
+    @Type(() => Number)
     offset?: number;
 }
 

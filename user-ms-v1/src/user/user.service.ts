@@ -10,6 +10,11 @@ export class UserService {
   constructor(@InjectModel('User') private userModel: Model<User>) {}
 
   async createUser(data: CreateUserDto): Promise<User> {
+    const user = await this.userModel.findOne({ email: data.email }).exec();
+    if (user) {
+      throw new Error('User already already exists');
+    };
+    
     const newUser = await this.userModel.create(data);
     return this.getUserById({ _id: newUser._id });
   }
@@ -25,12 +30,12 @@ export class UserService {
 
   async getAllUsers(data: GetUsersDto): Promise<User[]> {
     const { limit = 10, offset = 0, ...rest } = data;
-    return this.userModel.find(rest).select({ password: -1 }).skip(offset).limit(limit).exec();
+    return this.userModel.find(rest).select({ password: 0 }).skip(offset).limit(limit).exec();
   }
 
   async getUserById(data: GetUserDto): Promise<User> {
     const userId = new mongoose.Types.ObjectId(data._id); // Convert to ObjectId
-    return this.userModel.findById(userId).select({ password: -1 }).exec();
+    return this.userModel.findById(userId).select({ password: 0 }).exec();
   }
 
   async getUserLogin(data: GetUserLoginDto): Promise<User> {
