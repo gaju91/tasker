@@ -6,7 +6,7 @@ import { firstValueFrom } from 'rxjs';
 export class MicroserviceClientService {
     constructor(
         @Inject('USER_MICROSERVICE') private userClient: ClientProxy,
-       // @Inject('TASK_MICROSERVICE') private taskClient: ClientProxy,
+        @Inject('TASK_MICROSERVICE') private taskClient: ClientProxy,
     ) { }
 
     private async exec<T>(client: ClientProxy, cmd: string, data: any): Promise<T> {
@@ -18,9 +18,9 @@ export class MicroserviceClientService {
         return msRes["data"];
     }
 
-    // execTask<T>(cmd: string, data: any): Promise<T> {
-    //     return this.exec<T>(this.taskClient, cmd, data);
-    // }
+    execTask<T>(cmd: string, data: any): Promise<T> {
+        return this.exec<T>(this.taskClient, cmd, data);
+    }
 
     execUser<T>(cmd: string, data: any): Promise<T> {
         return this.exec<T>(this.userClient, cmd, data);

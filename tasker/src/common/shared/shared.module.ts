@@ -20,6 +20,20 @@ import { MicroserviceClientService } from './microservice-client.service';
                 }),
             },
         ]),
+        ClientsModule.registerAsync([
+            {
+                name: 'TASK_MICROSERVICE',
+                imports: [ConfigModule],
+                inject: [ConfigService],
+                useFactory: (configService: ConfigService) => ({
+                    transport: Transport.TCP,
+                    options: {
+                        host: configService.get<string>('TASK_MICROSERVICE_HOST'),
+                        port: configService.get<number>('TASK_MICROSERVICE_PORT'),
+                    },
+                }),
+            },
+        ]),
     ],
     providers: [MicroserviceClientService],
     exports: [MicroserviceClientService],

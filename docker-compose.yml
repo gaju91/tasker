@@ -1,0 +1,67 @@
+# docker-compose.yml
+
+version: '3.8'
+services:
+  user-microservice:
+    build:
+      context: ./user-ms-v1
+      args:
+        PORT: ${USER_MICROSERVICE_PORT}
+    ports:
+      - ${USER_MICROSERVICE_PORT}:${USER_MICROSERVICE_PORT}
+    environment:
+      - HOST=${USER_MICROSERVICE_HOST}
+      - PORT=${USER_MICROSERVICE_PORT}
+      - MONGO_URI=mongodb://mongo:27017/user-ms-v1
+    depends_on:
+      - mongo
+
+  task-microservice:
+    build:
+      context: ./task-ms-v1
+      args:
+        PORT: ${TASK_MICROSERVICE_PORT}
+    ports:
+      - ${TASK_MICROSERVICE_PORT}:${TASK_MICROSERVICE_PORT}
+    environment:
+      - HOST=${TASK_MICROSERVICE_HOST}
+      - PORT=${TASK_MICROSERVICE_PORT}
+      - MONGO_URI=mongodb://mongo:27017/task-ms-v1
+    depends_on:
+      - mongo
+
+  tasker-app:
+    build:
+      context: ./tasker
+      args:
+        PORT: ${PORT}
+    volumes:
+      - ./tasker:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - HOST=${HOST}
+      - PORT=${PORT}
+      - JWT_SECRET=${JWT_SECRET}
+      - DEFAULT_ADMIN_USERNAME=${DEFAULT_ADMIN_USERNAME}
+      - DEFAULT_ADMIN_PASSWORD=${DEFAULT_ADMIN_PASSWORD}
+      - DEFAULT_ADMIN_EMAIL=${DEFAULT_ADMIN_EMAIL}
+      - USER_MICROSERVICE_HOST=${USER_MICROSERVICE_HOST}
+      - USER_MICROSERVICE_PORT=${USER_MICROSERVICE_PORT}
+      - TASK_MICROSERVICE_HOST=${TASK_MICROSERVICE_HOST}
+      - TASK_MICROSERVICE_PORT=${TASK_MICROSERVICE_PORT}
+    command: npm run start:dev
+    depends_on:
+      - user-microservice
+      - task-microservice
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

@@ -51,8 +51,15 @@ export class TaskService {
   }
 
   async getTasks(data: GetTasksDto): Promise<Task[]> {
-    const { limit = 10, offset = 0, ...rest } = data;
-    return this.taskModel.find(rest).skip(offset).limit(limit).exec();
+    const { 
+      limit = 10, 
+      offset = 0, 
+      sortBy = 'createdAt',
+      sortDir = 'desc', 
+      ...rest 
+    } = data;
+
+    return this.taskModel.find(rest).sort({ [sortBy]: sortDir }).skip(offset).limit(limit).lean().exec();
   }
 
   async getTaskById(data: GetTaskDto): Promise<Task> {
