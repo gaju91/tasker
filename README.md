@@ -12,11 +12,12 @@ Tasker is the central hub 🌐 of our application, seamlessly integrating 🤝 t
 
 **POSTMAN Collection:** [Tasker API Collection](https://github.com/gaju91/tasker/blob/main/API-Docs/postman.collection.js).
 
-Tasker unites two pivotal microservices:
+Tasker unites two pivotal services:
+1. **Tasker HTTP 🧑‍💼**: Handles all auth and communication with microservices For detailed info, check out the [Tasker HTTP Client Documentation](https://github.com/gaju91/tasker/tree/main/tasker#readme).
 
-1. **User Microservice 🧑‍💼**: Handles all aspects of user management. For detailed info, check out the [User Microservice Documentation](https://github.com/gaju91/tasker/tree/main/user-ms-v1#readme).
+2. **User Microservice 🧑‍💼**: Handles all aspects of user management. For detailed info, check out the [User Microservice Documentation](https://github.com/gaju91/tasker/tree/main/user-ms-v1#readme).
 
-2. **Task Management Microservice 📋**: Manages tasks from creation to completion. Dive into the [Task Management Microservice Documentation](https://github.com/gaju91/tasker/tree/main/task-ms-v1#readme) for more.
+3. **Task Management Microservice 📋**: Manages tasks from creation to completion. Dive into the [Task Management Microservice Documentation](https://github.com/gaju91/tasker/tree/main/task-ms-v1#readme) for more.
 
 ### Key Features 🌈
 
@@ -87,7 +88,7 @@ If services doesn't start sometime please clear docker and try again.
    ```
 ## Additional Information 📝
 
-- **Testing**: Tasker includes comprehensive unit and integration tests 🧪 for its critical functionalities.
 - **Documentation Links** 📖:
+  - [Tasker HTTP Client Documentation](https://github.com/gaju91/tasker/tree/main/tasker#readme).
   - [User Microservice Documentation](https://github.com/gaju91/tasker/tree/main/user-ms-v1#readme)
   - [Task Management Microservice Documentation](https://github.com/gaju91/tasker/tree/main/task-ms-v1#readme)
