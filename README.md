@@ -10,6 +10,8 @@ Tasker is the central hub 🌐 of our application, seamlessly integrating 🤝 t
 
 ## API Reference 📚
 
+**POSTMAN Collection:** [Tasker API Collection](https://github.com/gaju91/tasker/blob/main/API-Docs/postman.collection.js).
+
 Tasker unites two pivotal microservices:
 
 1. **User Microservice 🧑‍💼**: Handles all aspects of user management. For detailed info, check out the [User Microservice Documentation](https://github.com/gaju91/tasker/tree/main/user-ms-v1#readme).
@@ -32,6 +34,13 @@ Tasker's endpoints are a mix of functionalities from both the User and Task Mana
 ### Authentication 🔒
 
 Tasker uses JWT-based authentication for securing endpoints and managing user sessions, ensuring a secure and reliable user experience.
+**Default Admin Cred**
+This will be created when first time service starts
+```bash
+   DEFAULT_ADMIN_USERNAME=task@admin
+   DEFAULT_ADMIN_PASSWORD=123456
+   DEFAULT_ADMIN_EMAIL=tasker.admin@tasker.com
+```
 
 ## Running Tasker Locally 🏠 🏃‍♂️
 
@@ -45,8 +54,8 @@ Tasker uses JWT-based authentication for securing endpoints and managing user se
 1. **Clone the Repository**:
    
    ```bash
-   git clone <tasker-repository-url>
-   cd path/to/tasker
+      git clone <tasker-repository-url>
+      cd path/to/tasker
    ```
 
 2. **Install Dependencies**:
@@ -65,6 +74,17 @@ Tasker uses JWT-based authentication for securing endpoints and managing user se
    npm start
    ```
 
+## Troubleshooting 🪛
+If services doesn't start sometime please clear docker and try again.
+
+   ```bash
+      docker compose down
+
+      docker container stop $(docker container ls -aq)
+      docker container rm $(docker container ls -aq)
+
+      docker compose up --build
+   ```
 ## Additional Information 📝
 
 - **Testing**: Tasker includes comprehensive unit and integration tests 🧪 for its critical functionalities.
